@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 
+		디폴트 생성자 + setter 이용한 생성자를 통해 Car 생성 
+	-->
+	<bean id="car1" class="quiz01.Car">
+		<property name="model" value="benz"/>
+		<property name="price" value="5000"/>
+	</bean>
+	
+	
+
+	
+	<!-- 
+		constructor를 통해 Person 생성
+	 -->
+	<bean id="person1" class="quiz01.Person">
+		<constructor-arg value="도성"/>
+		<constructor-arg ref="car1"/>
+	</bean>
+	
+</beans>
