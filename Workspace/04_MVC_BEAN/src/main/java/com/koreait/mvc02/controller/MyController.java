@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.koreait.mvc02.dto.Member;
 
-@Controller  // ì»¨íŠ¸ë¡¤ëŸ¬
+@Controller  // ÄÁÆ®·Ñ·¯
 public class MyController {
 
-	// URLMappingì„ ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ ë‹¨ìœ„ë¡œ êµ¬ì„±í•œë‹¤.
+	// URLMappingÀ» Ã³¸®ÇÏ´Â ¸Ş¼Òµå ´ÜÀ§·Î ±¸¼ºÇÑ´Ù.
 	
-	// @RequestMapping(value="/")  // URLMappingì´ contextPathì¸ ê²½ìš°ì´ë‹¤. (http://localhost:9090/mvc02/)
-	// @RequestMapping(method=RequestMethod.GET)  // GETë°©ì‹ì˜ ìš”ì²­ì´ë‹¤. (ìƒëµ ê°€ëŠ¥)
+	// @RequestMapping(value="/")  // URLMappingÀÌ contextPathÀÎ °æ¿ìÀÌ´Ù. (http://localhost:9090/mvc02/)
+	// @RequestMapping(method=RequestMethod.GET)  // GET¹æ½ÄÀÇ ¿äÃ»ÀÌ´Ù. (»ı·« °¡´É)
 	@RequestMapping(value="/", method=RequestMethod.GET)
 
-	// 1. ë°˜í™˜íƒ€ì… : String, ì‘ë‹µViewì˜ ì´ë¦„ì„ ë°˜í™˜í•œë‹¤.
-	// 2. ë©”ì†Œë“œëª… : a, ì•„ë¬´ ì—­í• ì´ ì—†ë‹¤.
-	// 3. ë§¤ê°œë³€ìˆ˜ : Model model, requestë¥¼ ì´ìš©í•˜ëŠ” ê°ì²´ì´ë‹¤. ë³´ì•ˆì´ ì¢‹ë‹¤.
+	// 1. ¹İÈ¯Å¸ÀÔ : String, ÀÀ´äViewÀÇ ÀÌ¸§À» ¹İÈ¯ÇÑ´Ù.
+	// 2. ¸Ş¼Òµå¸í : a, ¾Æ¹« ¿ªÇÒÀÌ ¾ø´Ù.
+	// 3. ¸Å°³º¯¼ö : Model model, request¸¦ ÀÌ¿ëÇÏ´Â °´Ã¼ÀÌ´Ù. º¸¾ÈÀÌ ÁÁ´Ù.
 	public String a(Model model) {
 		// return "index";
-		// 1. DispatherServlet(servlet-context.xml)ì— ì •ì˜ëœ ViewResolverì— ì˜í•´ì„œ ì²˜ë¦¬ëœë‹¤.
-		//    1) prefix : "/WEB-INF/views/", return ì•ì— ì¶”ê°€í•œë‹¤.
-		//    2) suffix : ".jsp", return ë’¤ì— ì¶”ê°€í•œë‹¤.
-		// 2. forwardë¡œ ì´ë™ëœë‹¤.
+		// 1. DispatherServlet(servlet-context.xml)¿¡ Á¤ÀÇµÈ ViewResolver¿¡ ÀÇÇØ¼­ Ã³¸®µÈ´Ù.
+		//    1) prefix : "/WEB-INF/views/", return ¾Õ¿¡ Ãß°¡ÇÑ´Ù.
+		//    2) suffix : ".jsp", return µÚ¿¡ Ãß°¡ÇÑ´Ù.
+		// 2. forward·Î ÀÌµ¿µÈ´Ù.
 		return "index";  // return "/WEB-INF/views/index.jsp";
 	}
 	
