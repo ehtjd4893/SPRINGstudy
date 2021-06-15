@@ -25,8 +25,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Spring0303/install/jar/JSTL/taglibs-standard-impl-1.2.5.jar"/>
-	<classpathentry kind="lib" path="D:/Spring0303/install/jar/JSTL/taglibs-standard-jstlel-1.2.5.jar"/>
-	<classpathentry kind="lib" path="D:/Spring0303/install/jar/JSTL/taglibs-standard-spec-1.2.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

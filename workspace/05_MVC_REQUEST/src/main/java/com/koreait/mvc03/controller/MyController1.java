@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class MyController {
+public class MyController1 {
 	
 	// 모든 요청(URLMapping) 처리는 메소드 단위로 한다.
 	
@@ -22,4 +22,20 @@ public class MyController {
 		// return "/WEB-INF/views/index.jsp";
 		return "index";	// 기본적인 이동 방식은 forward이다.
 	}
+	
+	//@RequestMapping(value="/view01" // 슬래시(/)로 시작해도 상관 없다. 
+	@RequestMapping(value="view01")
+	public String b() {
+		// return "/folder01/view01"; //  슬래시(/)로 시작해도 상관 없다.
+		return "folder01/view01";	// jsp의 경로 return
+	}
+	
+	// 실제 디렉터리 구조와 매핑값을 다르게 가져가서
+	// 외부에서 주소를 통해 내부 구조를 예상하지 못 하도록 처리한다.
+	@RequestMapping(value="a/b/c/d/e/v02")
+	public String c() {
+		return "/folder01/view02";
+	}
+	
+	// 앞으로는 매핑 값을 작성할 때 시작 슬래시(/)를 넣지 않겠다.
 }

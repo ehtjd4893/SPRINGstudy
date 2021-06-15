@@ -5,4 +5,33 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+	<bean id="p1" class="com.koreait.mvc03.dto.Person">
+		<qualifier value="p1"/>
+		<property name="name" value="박길동"/>
+		<property name="age" value="25"/>
+		<property name="hobbies">
+			<list>
+				<value>배그</value>
+				<value>롤</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="p2" class="com.koreait.mvc03.dto.Person">
+		<qualifier value="p2"/>
+		<property name="name" value="감길동"/>
+		<property name="age" value="35"/>
+		<property name="hobbies">
+			<list>
+				<value>방송</value>
+				<value>관제탑</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="b1" class="com.koreait.mvc03.quiz.Board">
+		<qualifier value="b1"/>
+		<property name="title" value="제목1"/>
+		<property name="hit" value="1"/>
+	</bean>
 </beans>
