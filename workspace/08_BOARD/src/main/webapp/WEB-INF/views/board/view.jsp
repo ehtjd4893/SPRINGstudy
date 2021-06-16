@@ -36,8 +36,10 @@
 	
 	<form method="post" id="f">
 		<input type="hidden" name="no" value="${board.no}">
+		<input type="hidden" name="writer" value="${board.writer}">
 		<input type="hidden" name="title" value="${board.title}">
 		<input type="hidden" name="content" value="${board.content}">
+		<input type="hidden" name="postdate" value="${board.postdate}">
 		<input type="button" value="수정하기" id="update_page_btn">
 		<input type="button" value="삭제하기" id="delete_btn">
 		<input type="button" value="목록으로 이동" id="list_btn">

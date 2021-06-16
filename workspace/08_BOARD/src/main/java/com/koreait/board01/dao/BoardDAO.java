@@ -52,7 +52,7 @@ public class BoardDAO {
 		List<Board> list = new ArrayList<Board>();
 		try {
 			con = dataSource.getConnection(); 
-			sql = "SELECT NO, WRITER, TITLE, CONTENT, POSTDATE FROM BOARD";
+			sql = "SELECT NO, WRITER, TITLE, CONTENT, POSTDATE FROM BOARD ORDER BY NO DESC";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()) {
