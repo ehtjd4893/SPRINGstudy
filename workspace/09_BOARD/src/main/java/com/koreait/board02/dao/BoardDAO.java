@@ -19,6 +19,11 @@ public class BoardDAO {
 	private JdbcTemplate template;
 	private String sql;
 	
+	
+	public BoardDAO(JdbcTemplate template) {
+		this.template = template;
+	}
+	
 	// list
 	public List<Board> selectBoardList(){
 		sql = "SELECT NO, WRITER, TITLE, CONTENT, POSTDATE FROM BOARD ORDER BY NO DESC";

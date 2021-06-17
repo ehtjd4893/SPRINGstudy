@@ -2,6 +2,7 @@ package com.koreait.board02.dto;
 
 import java.sql.Date;
 
+
 public class Board {
 
 	private long no;
@@ -9,6 +10,7 @@ public class Board {
 	private String title;
 	private String content;
 	private Date postdate;
+
 	
 	public long getNo() {
 		return no;
