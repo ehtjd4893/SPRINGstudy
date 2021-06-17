@@ -5,6 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import com.koreait.board02.command.DeleteBoardCommand;
+import com.koreait.board02.command.InsertBoardCommand;
+import com.koreait.board02.command.SelectBoardListCommand;
+import com.koreait.board02.command.SelectBoardViewCommand;
+import com.koreait.board02.command.UpdateBoardCommand;
 import com.koreait.board02.dao.BoardDAO;
 
 @Configuration
@@ -28,5 +33,25 @@ public class BeanConfiguration {
 	@Bean
 	public BoardDAO boardDAO() {
 		return new BoardDAO(template());
+	}
+	@Bean
+	public SelectBoardViewCommand viewCommand() {
+		return new SelectBoardViewCommand();
+	}
+	@Bean
+	public SelectBoardListCommand listCommand() {
+		return new SelectBoardListCommand();
+	}
+	@Bean
+	public UpdateBoardCommand updateCommand() {
+		return new UpdateBoardCommand();
+	}
+	@Bean
+	public DeleteBoardCommand deleteCommand() {
+		return new DeleteBoardCommand();
+	}
+	@Bean
+	public InsertBoardCommand insertCommand() {
+		return new InsertBoardCommand();
 	}
 }
