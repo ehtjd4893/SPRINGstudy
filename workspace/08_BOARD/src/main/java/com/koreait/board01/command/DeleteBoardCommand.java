@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import com.koreait.board01.dao.BoardDAO;
 import com.koreait.board01.dto.Board;
 
-public class deleteBoardCommand implements BoardCommand {
+public class DeleteBoardCommand implements BoardCommand {
 
 	@Override
 	public void execute(Model model) {

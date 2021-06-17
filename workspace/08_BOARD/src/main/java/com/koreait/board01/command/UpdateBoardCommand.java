@@ -6,9 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
 
+import com.koreait.board01.dao.BoardDAO;
 import com.koreait.board01.dto.Board;
 
-public class updatePageCommand implements BoardCommand {
+public class UpdateBoardCommand implements BoardCommand {
 
 	@Override
 	public void execute(Model model) {
@@ -18,7 +19,7 @@ public class updatePageCommand implements BoardCommand {
 		b.setNo(Long.parseLong(request.getParameter("no")));
 		b.setTitle(request.getParameter("title"));
 		b.setContent(request.getParameter("content"));
-		model.addAttribute("board", b);
+		BoardDAO.getInstance().updateBoard(b);
 	}
 
 }

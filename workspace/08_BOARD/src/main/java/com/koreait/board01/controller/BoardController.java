@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.koreait.board01.command.BoardCommand;
 import com.koreait.board01.command.BoardListCommand;
 import com.koreait.board01.command.InsertBoardCommand;
-import com.koreait.board01.command.deleteBoardCommand;
-import com.koreait.board01.command.selectBoardByNoCommand;
-import com.koreait.board01.command.updateBoardCommand;
-import com.koreait.board01.command.updatePageCommand;
+import com.koreait.board01.command.DeleteBoardCommand;
+import com.koreait.board01.command.SelectBoardByNoCommand;
+import com.koreait.board01.command.UpdateBoardCommand;
+import com.koreait.board01.command.UpdatePageCommand;
 import com.koreait.board01.dao.BoardDAO;
 import com.koreait.board01.dto.Board;
 
-@Controller
+// @Controller
 public class BoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class) ;
@@ -61,7 +61,7 @@ public class BoardController {
 	@GetMapping(value="selectBoardByNo.do")
 	public String selectBoardByNo(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		command = new selectBoardByNoCommand();
+		command = new SelectBoardByNoCommand();
 		command.execute(model);
 		return "board/view";
 	}
@@ -69,7 +69,7 @@ public class BoardController {
 	@PostMapping(value="updatePage.do")
 	public String updatePage(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		command = new updatePageCommand();
+		command = new UpdatePageCommand();
 		command.execute(model);
 		return "board/update";
 	}
@@ -77,7 +77,7 @@ public class BoardController {
 	@PostMapping(value="updateBoard.do")
 	public String updateBoard(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		command = new updateBoardCommand();
+		command = new UpdateBoardCommand();
 		command.execute(model);
 		return "redirect:selectBoardList.do";
 	}
@@ -85,7 +85,7 @@ public class BoardController {
 	@PostMapping(value="deleteBoard.do")
 	public String deleteBoard(Board board, Model model) {
 		model.addAttribute("board", board);
-		command = new deleteBoardCommand();
+		command = new DeleteBoardCommand();
 		command.execute(model);
 		
 		return "redirect:selectBoardList.do";
