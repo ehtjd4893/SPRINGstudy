@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="selectList" class="com.koreait.contact01.command.SelectListCommand" />
+	<bean id="insertCommand" class="com.koreait.contact01.command.InsertContactCommand"/>
+	<bean id="viewContact" class="com.koreait.contact01.command.ViewContactCommand" />
+	<bean id="updateContactCommand" class="com.koreait.contact01.command.UpdateContactCommand" />
+	<bean id="deleteContactCommand" class="com.koreait.contact01.command.DeleteContactCommand" />
+	
+</beans>
