@@ -72,7 +72,7 @@ public class ContactController {
 	}
 	
 	@PostMapping(value="update.do")
-	public String view(Contact contact, Model model) {
+	public String update(Contact contact, Model model) {
 		model.addAttribute("contact",contact);
 		updateContactCommand.execute(model);
 		return listPage(model);

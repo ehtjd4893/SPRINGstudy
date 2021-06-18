@@ -1,5 +1,7 @@
 package com.koreait.contact02.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -44,11 +46,12 @@ public class ContactController {
 	}
 	
 	@PostMapping(value="insert.do")
-	public String insert(Contact contact, Model model) {
+	public void insert(Contact contact, HttpServletResponse response, Model model) {
 		model.addAttribute("contact", contact);
+		model.addAttribute("response", response);
 		InsertContactCommand insertContactCommand = (InsertContactCommand) ctx.getBean("insertCmd");
 		insertContactCommand.execute(model);
-		return listPage(model);
+		// return listPage(model);
 	}
 	
 	@GetMapping(value="viewContact.do")
@@ -60,19 +63,21 @@ public class ContactController {
 	}
 	
 	@PostMapping(value="update.do")
-	public String view(Contact contact, Model model) {
+	public void update(Contact contact, HttpServletResponse response, Model model) {
 		model.addAttribute("contact",contact);
+		model.addAttribute("response",response);
 		UpdateContactCommand updateContactCommand = (UpdateContactCommand) ctx.getBean("updateCmd");
 		updateContactCommand.execute(model);
-		return listPage(model);
+		//return listPage(model);
 	}
 	
 	@GetMapping(value="delete.do")
-	public String delete(@RequestParam("no") long no, Model model) {
+	public void delete(@RequestParam("no") long no, HttpServletResponse response ,Model model) {
 		model.addAttribute("no", no);
+		model.addAttribute("response", response);
 		DeleteContactCommand deleteContactCommand = (DeleteContactCommand) ctx.getBean("deleteCmd");
 		deleteContactCommand.execute(model);
-		return listPage(model);
+		//return listPage(model);
 	}
 	
 }

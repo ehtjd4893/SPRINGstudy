@@ -24,7 +24,8 @@
 			})
 			
 			$('#delete_btn').on('click', function(){
-				location.href = 'delete.do?no=${contact.no}';
+				if(confirm('삭제하시겠습니까?'))
+					location.href = 'delete.do?no=${contact.no}';
 			})
 			
 			$('#list_btn').on('click', function(){

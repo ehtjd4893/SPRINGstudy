@@ -13,24 +13,21 @@ import com.koreait.contact02.dto.Contact;
 
 public class ContactDAO {
 	
-	@Autowired
 	private JdbcTemplate template;
 	private String sql;
-	
 	
 	public ContactDAO(JdbcTemplate template) {
 		this.template = template;
 	}
-
 
 	public List<Contact> selectList() {
 		sql = "SELECT NO, NAME, TEL, ADDR, EMAIL FROM CONTACT";
 		return template.query(sql, new BeanPropertyRowMapper<Contact>(Contact.class));
 	}
 
-	public void insert(final Contact c) {
+	public int insert(final Contact c) {
 		sql = "INSERT INTO CONTACT VALUES(CONTACT_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
-		template.update(sql, new PreparedStatementSetter() {
+		return template.update(sql, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, c.getName());
@@ -47,9 +44,9 @@ public class ContactDAO {
 		return template.queryForObject(sql, new BeanPropertyRowMapper<Contact>(Contact.class), no);
 	}
 
-	public void update(final Contact c) {
+	public int update(final Contact c) {
 		sql = "UPDATE CONTACT SET NAME = ?, TEL = ?, ADDR = ?, EMAIL = ?, NOTE = ? WHERE NO = ?";
-		template.update(sql, new PreparedStatementSetter() {
+		return template.update(sql, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, c.getName());
@@ -62,8 +59,8 @@ public class ContactDAO {
 		});
 	}
 
-	public void deleteByNo(long no) {
+	public int deleteByNo(long no) {
 		sql = "DELETE FROM CONTACT WHERE NO = ?";
-		template.update(sql, no);
+		return template.update(sql, no);
 	}
 }

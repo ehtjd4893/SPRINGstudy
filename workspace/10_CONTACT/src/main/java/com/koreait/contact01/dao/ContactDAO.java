@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import com.koreait.contact01.dto.Contact;
 
 public class ContactDAO {
+	
 	private Connection con;
 	private PreparedStatement ps;
 	private ResultSet rs;
