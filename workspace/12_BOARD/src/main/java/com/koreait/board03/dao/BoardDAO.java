@@ -13,7 +13,12 @@ public interface BoardDAO {
 	public Board selectBoardByNo(long no);
 	
 	public void insertBoard(Board board);
+	
 	public void insertBoard2(String writer, String title, String content);
+	
 	public void updateBoard(Board board);
+	
 	public void updateBoard2(String title, String content, long no);
+	
+	public void deleteBoard(long no);
 }

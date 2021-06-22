@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.koreait.contact03.dao.ContactDAO">
+	<select id="selectList" resultType="com.koreait.contact03.dto.Contact">
+		SELECT NO, NAME, TEL, ADDR, EMAIL FROM CONTACT
+	</select>
+	
+	<insert id="insert" parameterType="com.koreait.contact03.dto.Contact">
+		INSERT INTO CONTACT 
+		VALUES(CONTACT_SEQ.NEXTVAL, #{name}, #{tel}, #{addr}, #{email}, #{note})
+	</insert>
+	
+	<select id="selectByNo" resultType="com.koreait.contact03.dto.Contact">
+		SELECT NO, NAME, TEL, ADDR, EMAIL, NOTE 
+		  FROM CONTACT 
+		 WHERE NO = #{no}
+	</select>
+	
+	<update id="update">
+		UPDATE CONTACT SET 
+		  NAME = #{name}, TEL = #{tel}, ADDR = #{addr}, EMAIL = #{email}, NOTE = #{note} 
+		 WHERE NO = #{no}
+	</update>
+	
+	<delete id="deleteByNo">
+		DELETE FROM CONTACT WHERE NO = #{no}
+	</delete>
+</mapper>

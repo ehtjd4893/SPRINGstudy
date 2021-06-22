@@ -15,29 +15,35 @@ import com.koreait.board03.command.InsertBoardCommand;
 import com.koreait.board03.command.SelectBoardListCommand;
 import com.koreait.board03.command.SelectBoardViewCommand;
 import com.koreait.board03.command.UpdateBoardCommand;
+import com.koreait.board03.command.DeleteBoardCommand;
 import com.koreait.board03.dto.Board;
 
 @Controller
 public class BoardController {
 
-	// field
 
-	@Autowired
-	SelectBoardListCommand selectBoardListCommand;
-	
-	@Autowired
-	SelectBoardViewCommand selectBoardViewCommand;
-	
-	@Autowired
-	InsertBoardCommand insertBoardCommand;
-	
-	@Autowired
-	UpdateBoardCommand updateBoardCommand;
-	
-	//private SqlSessionTemplate sqlSession; 
-	@Autowired
+	// field
+	private SelectBoardListCommand selectBoardListCommand;
+	private SelectBoardViewCommand selectBoardViewCommand;	
+	private InsertBoardCommand insertBoardCommand;
+	private UpdateBoardCommand updateBoardCommand;
+	private DeleteBoardCommand deleteBoardCommand;
 	private SqlSession sqlSession; // SqlSessionTemplate는 SqlSession 인터페이스를 구현한 클래스
+
 	
+	@Autowired
+	public BoardController(SelectBoardListCommand selectBoardListCommand, SelectBoardViewCommand selectBoardViewCommand,
+			InsertBoardCommand insertBoardCommand, UpdateBoardCommand updateBoardCommand,
+			DeleteBoardCommand deleteBoardCommand, SqlSession sqlSession) {
+		super();
+		this.selectBoardListCommand = selectBoardListCommand;
+		this.selectBoardViewCommand = selectBoardViewCommand;
+		this.insertBoardCommand = insertBoardCommand;
+		this.updateBoardCommand = updateBoardCommand;
+		this.deleteBoardCommand = deleteBoardCommand;
+		this.sqlSession = sqlSession;
+	}
+
 	@GetMapping(value="/")
 	public String index() {
 		return "index";
@@ -76,5 +82,12 @@ public class BoardController {
 		model.addAttribute("request", request);
 		updateBoardCommand.execute(sqlSession, model);
 		return "redirect:selectBoardByNo.do?no=" + request.getParameter("no");
+	}
+	@PostMapping(value="deleteBoard.do")
+	public String deleteBoard(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("request", request);
+		deleteBoardCommand.execute(sqlSession, model);
+		return "redirect:selectBoardList.do";
 	}
 }

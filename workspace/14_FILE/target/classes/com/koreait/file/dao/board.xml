@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 
+	참고. Jsp에서 처리한 방법
+	<mapper namespace="com.koreait.board03.dao.board"> mapper 자신
+	
+	</mapper>
+ -->
+
+<!-- mapper를 BoardDAO와 직접 연결한다. -->
+<mapper namespace="com.koreait.file.dao.BoardDAO">
+	
+</mapper>
