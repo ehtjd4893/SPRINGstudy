@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<h1>게시글 목록 보기</h1>
+	<a href="insertBoardPage.do">새 글 작성하기</a><br><br>
+	<table border="1">
+		<thead>
+			<tr>
+				<td>번호</td>
+				<td>제목</td>
+				<td>작성자</td>
+				<td>작성일</td>
+				<td>첨부</td>
+			</tr>
+		</thead>
+		<tbody>
+			<c:if test="${empty list}">
+				<tr>
+					<td colspan="5">없음</td>
+				</tr>
+			</c:if>
+			
+			<c:if test="${not empty list}">
+				<c:forEach var="board" items="${list}">
+					<tr>
+						<td>${board.no }</td>
+						<td><a href="selectBoardByNo.do?no=${board.no}">${board.title }</a></td>
+						<td>${board.writer }</td>
+						<td>${board.postdate }</td>
+						<td>
+							<c:if test="${not empty board.filename }">
+								<a href="download.do?filename=${board.filename}"><i class="fas fa-paperclip"></i></a>
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+		</tbody>
+	</table>
+</body>
+</html>

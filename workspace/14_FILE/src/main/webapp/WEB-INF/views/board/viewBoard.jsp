@@ -19,8 +19,8 @@
 		내용<br>
 		<input type="text" name="content" value="${board.content}"><br><br>
 
-		첨부<br>
-		
+		첨부 이미지<br>
+		<img alt="${board.filename}" src="resources/archive/${board.filename}" style="width: 300px">
 		
 		<input type="button" value="수정하기">
 		<input type="button" value="삭제하기">

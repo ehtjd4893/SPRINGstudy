@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Board {
 	
 	private long no;
-	private String writer;
+	private String writer; 
 	private String title;
 	private String content;
 	private String filename;
@@ -52,6 +52,5 @@ public class Board {
 		return "Board [no=" + no + ", writer=" + writer + ", title=" + title + ", content=" + content + ", filename="
 				+ filename + ", postdate=" + postdate + "]";
 	}
-	
 	
 }
