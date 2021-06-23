@@ -52,5 +52,5 @@ public class Board {
 		return "Board [no=" + no + ", writer=" + writer + ", title=" + title + ", content=" + content + ", filename="
 				+ filename + ", postdate=" + postdate + "]";
 	}
-	
+	 
 }
