@@ -19,8 +19,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectBoardByNo" resultType="com.koreait.file.dto.Board">
 		SELECT NO, WRITER, TITLE, CONTENT, FILENAME, POSTDATE
 		  FROM BOARD
-         WHERE NO = #{no}
+		 WHERE NO = #{param1}
 	</select>
+	
+	
+	
 	
 	
 

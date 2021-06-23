@@ -24,7 +24,7 @@ public class BoardController {
 	private InsertBoardCommand insertBoardCommand;
 	private DownloadCommand downloadCommand;
 	private SelectBoardViewCommand selectBoardViewCommand;
-	
+
 	@Autowired
 	public BoardController(SqlSession sqlSession,
 						   SelectBoardListCommand selectBoardListCommand,
@@ -77,8 +77,14 @@ public class BoardController {
 								  Model model) {
 		model.addAttribute("request", request);
 		selectBoardViewCommand.execute(sqlSession, model);
-		return "board/viewBoard";	
+		return "board/viewBoard";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

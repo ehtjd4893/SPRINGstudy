@@ -57,9 +57,12 @@ public class BeanConfiguration {
 		return new DownloadCommand();
 	}
 	@Bean
-	public SelectBoardViewCommand viewCommand() {
+	public SelectBoardViewCommand selectBoardViewCommand() {
 		return new SelectBoardViewCommand();
 	}
+	
+	
+	
 	
 	
 	
