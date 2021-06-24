@@ -1,5 +1,6 @@
 package com.koreait.file.controller;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +16,7 @@ import com.koreait.file.command.DownloadCommand;
 import com.koreait.file.command.InsertBoardCommand;
 import com.koreait.file.command.SelectBoardListCommand;
 import com.koreait.file.command.SelectBoardViewCommand;
+import com.koreait.file.command.UpdateBoardCommand;
 
 @Controller
 public class BoardController {
@@ -24,19 +26,22 @@ public class BoardController {
 	private InsertBoardCommand insertBoardCommand;
 	private DownloadCommand downloadCommand;
 	private SelectBoardViewCommand selectBoardViewCommand;
+	private UpdateBoardCommand updateBoardCommand;
 
 	@Autowired
 	public BoardController(SqlSession sqlSession,
 						   SelectBoardListCommand selectBoardListCommand,
 						   InsertBoardCommand insertBoardCommand,
 						   DownloadCommand downloadCommand,
-						   SelectBoardViewCommand selectBoardViewCommand) {
+						   SelectBoardViewCommand selectBoardViewCommand,
+						   UpdateBoardCommand updateBoardCommand) {
 		super();
 		this.sqlSession = sqlSession;
 		this.selectBoardListCommand = selectBoardListCommand;
 		this.insertBoardCommand = insertBoardCommand;
 		this.downloadCommand = downloadCommand;
 		this.selectBoardViewCommand = selectBoardViewCommand;
+		this.updateBoardCommand = updateBoardCommand;
 	}
 
 	@GetMapping(value="/")
@@ -80,9 +85,21 @@ public class BoardController {
 		return "board/viewBoard";
 	}
 	
+	@PostMapping(value="updateBoard.do")
+	public String updateBoard(MultipartHttpServletRequest multipartRequest,
+							  Model model) {
+		model.addAttribute("multipartRequest", multipartRequest);
+		updateBoardCommand.execute(sqlSession, model);
+		return "redirect:selectBoardByNo.do?no=" + multipartRequest.getParameter("no");
+	}
 	
-	
-	
+	@PostMapping(value="deleteBoard.do")
+	public String deleteBoard(HttpServletRequest request,
+							  Model model) {
+		
+		
+		return "";
+	}
 	
 	
 	
