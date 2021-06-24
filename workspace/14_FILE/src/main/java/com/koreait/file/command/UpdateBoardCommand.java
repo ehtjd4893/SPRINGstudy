@@ -16,31 +16,33 @@ public class UpdateBoardCommand implements BoardCommand {
 
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
+		
 		Map<String, Object> map = model.asMap();
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) map.get("multipartRequest");
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)map.get("multipartRequest");
 		
 		long no = Long.parseLong(multipartRequest.getParameter("no"));
 		String title = multipartRequest.getParameter("title");
 		String content = multipartRequest.getParameter("content");
-		String filename1 = multipartRequest.getParameter("filename1");	// 서버에 저장된 첨부파일명
-		MultipartFile filename2 = multipartRequest.getFile("filename2");	// 새로운 첨부파일
-	
+		String filename1 = multipartRequest.getParameter("filename1");    // 서버에 저장된 첨부파일명
+		MultipartFile filename2 = multipartRequest.getFile("filename2");  // 새로운 첨부파일
+		
 		String realPath = multipartRequest.getServletContext().getRealPath("resources/archive");
 		
-		File file = new File(realPath, filename1);	// 서버에 저장된 파일(기존의 첨부)
-
+		File file = new File(realPath, filename1);  // 서버에 저장된 파일(기존의 첨부)
+		
 		BoardDAO boardDAO = sqlSession.getMapper(BoardDAO.class);
 		
-		// 새 첨부 넣기
-		if (filename2 != null && !filename2.isEmpty()) {	// 새로운 첨부가 있다면
-			
-			if( file != null) {
-				if(file.exists()) {	// 기존의 첨부가 있다면,
-					// -> 기존 첨부를 지운다
+		if (filename2 != null && !filename2.isEmpty()) {  // 새로운 첨부가 있다.
+
+			// 기존 첨부와 새로운 첨부가 모두 있으면 -> 기존 첨부를 지운다.
+			if (file != null) {
+				// 기존 첨부 지우기
+				if (file.exists()) {
 					file.delete();
 				}
 			}
 			
+			// 새 첨부 넣기
 			String originalFilename = filename2.getOriginalFilename();
 			String extension = originalFilename.substring( originalFilename.lastIndexOf(".") + 1 );
 			String filename = originalFilename.substring( 0, originalFilename.lastIndexOf(".") );
@@ -51,6 +53,8 @@ public class UpdateBoardCommand implements BoardCommand {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			// DB에 넣는 파일명 인코딩 처리
 			try {
 				uploadFilename = URLEncoder.encode(uploadFilename, "utf-8");
 			} catch (UnsupportedEncodingException e) {
@@ -59,10 +63,10 @@ public class UpdateBoardCommand implements BoardCommand {
 			
 			boardDAO.updateBoard(title, content, uploadFilename, no);
 			
-		} else {	// 새로운 첨부가 없다.
+		} else {  // 새로운 첨부가 없다.
 			
-			boardDAO.updateBoard(title, content, "", no);
-		
+			boardDAO.updateBoard(title, content, filename1, no);
+			
 		}
 		
 	}

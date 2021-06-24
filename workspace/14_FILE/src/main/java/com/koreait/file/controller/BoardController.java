@@ -1,6 +1,5 @@
 package com.koreait.file.controller;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.koreait.file.command.DeleteBoardCommand;
 import com.koreait.file.command.DownloadCommand;
 import com.koreait.file.command.InsertBoardCommand;
 import com.koreait.file.command.SelectBoardListCommand;
@@ -27,14 +27,15 @@ public class BoardController {
 	private DownloadCommand downloadCommand;
 	private SelectBoardViewCommand selectBoardViewCommand;
 	private UpdateBoardCommand updateBoardCommand;
-
+	private DeleteBoardCommand deleteBoardCommand;
 	@Autowired
 	public BoardController(SqlSession sqlSession,
 						   SelectBoardListCommand selectBoardListCommand,
 						   InsertBoardCommand insertBoardCommand,
 						   DownloadCommand downloadCommand,
 						   SelectBoardViewCommand selectBoardViewCommand,
-						   UpdateBoardCommand updateBoardCommand) {
+						   UpdateBoardCommand updateBoardCommand,
+						   DeleteBoardCommand deleteBoardCommand) {
 		super();
 		this.sqlSession = sqlSession;
 		this.selectBoardListCommand = selectBoardListCommand;
@@ -42,6 +43,7 @@ public class BoardController {
 		this.downloadCommand = downloadCommand;
 		this.selectBoardViewCommand = selectBoardViewCommand;
 		this.updateBoardCommand = updateBoardCommand;
+		this.deleteBoardCommand = deleteBoardCommand;
 	}
 
 	@GetMapping(value="/")
@@ -92,13 +94,11 @@ public class BoardController {
 		updateBoardCommand.execute(sqlSession, model);
 		return "redirect:selectBoardByNo.do?no=" + multipartRequest.getParameter("no");
 	}
-	
 	@PostMapping(value="deleteBoard.do")
-	public String deleteBoard(HttpServletRequest request,
-							  Model model) {
-		
-		
-		return "";
+	public String deleteBoard(MultipartHttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		deleteBoardCommand.execute(sqlSession, model);
+		return "redirect:selectBoardList.do";
 	}
 	
 	

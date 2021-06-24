@@ -10,5 +10,5 @@ public interface BoardDAO {
 	public int insertBoard(String writer, String title, String content, String filename);
 	public Board selectBoardByNo(long no);
 	public int updateBoard(String title, String content, String filename, Long no);
-	
+	public int deleteBoard(Long no);
 }

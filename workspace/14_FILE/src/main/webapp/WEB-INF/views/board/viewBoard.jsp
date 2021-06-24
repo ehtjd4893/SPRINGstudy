@@ -35,7 +35,7 @@
 		<input type="button" value="삭제하기" id="delete_btn"><br><br>
 		
 		<input type="hidden" name="no" value="${board.no}">
-		<input type="hidden" name="filename1" value="${finename}">	<!-- 서버에 첨부된 파일명 -->
+		<input type="hidden" name="filename1" value="${filename}">	<!-- 서버에 첨부된 파일명 -->
 		작성자<br>
 		${board.writer}<br><br>
 		
