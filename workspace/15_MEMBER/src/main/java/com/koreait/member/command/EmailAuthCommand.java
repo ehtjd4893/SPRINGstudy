@@ -29,24 +29,14 @@ public class EmailAuthCommand{
 		// MimeMessage 클래스
 		// 이메일을 작성하는 클래스
 		MimeMessage message = MailSender.createMimeMessage();
-		String code = "";	// 30 ~ 122까지의 숫자 발생시켜서 char로 변환 (아스키코드표)
-		char[] characters = {
-				'A', 'B', 'C', 'D', 'E', 'F', 
-				'G', 'H', 'I', 'J', 'K', 'L',
-				'M', 'N', 'O', 'P', 'Q', 'R',
-				'S', 'T', 'U', 'V', 'W', 'X', 
-				'Y', 'Z', '0', '1', '2', '3',
-				'4', '5', '6', '7', '8', '9',
-				'!', '@', '#', '$'
-		};
-		for(int i = 0; i < 6; i++) {
-			code += characters[(int)(Math.random() * characters.length)];
-		}
+		
+		String code = null;
 		try {
 			message.setHeader("Content-type", "text/plain; charset=utf-8");
 			message.setFrom(new InternetAddress("forspringlec@gmail.com", "관리자"));	// 보내는 사람
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));	// 받는 사람
-			message.setSubject("인증 요청 메일입니다.");			
+			message.setSubject("인증 요청 메일입니다.");
+			code =  SecurityUtils.getAuthCode(6);	// 6자리 인증코드
 			message.setText("인증번호는 " + code + "입니다.");
 			
 		} catch (Exception e) {

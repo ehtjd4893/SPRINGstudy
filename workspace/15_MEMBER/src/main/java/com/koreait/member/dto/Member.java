@@ -7,7 +7,13 @@ public class Member {
 	private String id;
 	private String pw;
 	private String name;
-	private Date date;
+	private Date regdate;
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
 	private String email;
 	
 	public long getNo() {
@@ -34,12 +40,7 @@ public class Member {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -48,7 +49,7 @@ public class Member {
 	}
 	@Override
 	public String toString() {
-		return "Member [no=" + no + ", id=" + id + ", pw=" + pw + ", name=" + name + ", date=" + date + ", email="
+		return "Member [no=" + no + ", id=" + id + ", pw=" + pw + ", name=" + name + ", regdate=" + regdate + ", email="
 				+ email + "]";
 	}
 	
