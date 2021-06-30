@@ -7,8 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import com.koreait.ajax.command.DeleteMemberCommand;
 import com.koreait.ajax.command.InsertMemberCommand;
 import com.koreait.ajax.command.SelectMemberListCommand;
+import com.koreait.ajax.command.SelectMemberViewCommand;
+import com.koreait.ajax.command.UpdateMemberCommand;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -25,7 +28,7 @@ public class BeanConfiguration {
 		return hikariConfig;
 	}
 	
-	@Bean
+	@Bean(destroyMethod="close")
 	public HikariDataSource hikariDataSource() {
 		return new HikariDataSource(hikariConfig());
 	}
@@ -53,5 +56,19 @@ public class BeanConfiguration {
 		return new SelectMemberListCommand();
 	}
 	
+	@Bean
+	public SelectMemberViewCommand selectMemberViewCommand() {
+		return new SelectMemberViewCommand();
+	}
+	
+	@Bean
+	public UpdateMemberCommand updateMemberCommand() {
+		return new UpdateMemberCommand();
+	}
+	
+	@Bean
+	public DeleteMemberCommand deleteMemberCommand() {
+		return new DeleteMemberCommand();
+	}
 	
 }
