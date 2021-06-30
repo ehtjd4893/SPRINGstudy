@@ -26,8 +26,8 @@
 				$('#f').attr('action', 'search.do');
 				$('#f').submit();
 			});
-		}
-		function fn_init(){
+		} 
+		function fn_init(){ 
 			$('#column').val('');
 			$('#query').val(''); 
 		}
