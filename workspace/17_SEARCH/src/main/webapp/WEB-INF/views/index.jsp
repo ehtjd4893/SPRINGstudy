@@ -28,7 +28,7 @@
 			});
 		} 
 		function fn_init(){ 
-			$('#column').val('');
+			$('#column').val(''); 
 			$('#query').val(''); 
 		} 
 		function fn_search_all(){
