@@ -29,7 +29,7 @@
 		}
 		function fn_init(){
 			$('#column').val('');
-			$('#query').val('');
+			$('#query').val(''); 
 		}
 		function fn_search_all(){
 			$('#search_all_btn').click(function(){
