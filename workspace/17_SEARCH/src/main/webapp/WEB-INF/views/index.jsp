@@ -30,7 +30,7 @@
 		function fn_init(){ 
 			$('#column').val('');
 			$('#query').val(''); 
-		}
+		} 
 		function fn_search_all(){
 			$('#search_all_btn').click(function(){
 				location.href = 'searchAll.do';
