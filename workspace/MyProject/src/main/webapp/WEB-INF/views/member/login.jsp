@@ -29,7 +29,7 @@
 	
 	<form id="f" method="post" action="login.do">
 		<input type="text" placeholder="ID를 입력하세요." name="id" id="id">
-		<input type="text" placeholder="PW를 입력하세요." name="pw" id="pw">
+		<input type="password" placeholder="PW를 입력하세요." name="pw" id="pw">
 		<input type="button" value="로그인하기" id="login_btn">
 	</form>
 		<input type="button" value="회원가입" id="signup_btn" onclick="location.href='signupPage.do'">

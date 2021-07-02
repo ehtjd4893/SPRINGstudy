@@ -115,4 +115,14 @@ public class Controller {
 		model.addAttribute("request", request);
 		return phoneCheckCommand.execute(sqlSession, model);
 	}
+	
+	@GetMapping(value="myPage.do")
+	public String myPage() {
+		return "member/myPage";
+	}
+	@GetMapping(value="signout.do")
+	public String signout() {
+		
+		return "board/mainList";
+	}
 }
