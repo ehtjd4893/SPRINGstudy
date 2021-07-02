@@ -19,6 +19,7 @@ public class SearchQueryCommand implements SearchCommand {
 
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
+		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
@@ -29,11 +30,12 @@ public class SearchQueryCommand implements SearchCommand {
 		String query = request.getParameter("query");
 		String top = request.getParameter("top");
 		String bottom = request.getParameter("bottom");
+		
 		QueryDTO queryDTO = new QueryDTO();
 		queryDTO.setColumn(column);
 		queryDTO.setQuery(query);
-		queryDTO.setBottom(Integer.parseInt(bottom));
-		queryDTO.setTop(Integer.parseInt(top));
+		queryDTO.setTop(top);
+		queryDTO.setBottom(bottom);
 		
 		SearchDAO searchDAO = sqlSession.getMapper(SearchDAO.class);
 		int searchRecord = searchDAO.getSearchRecord(queryDTO);
@@ -45,11 +47,12 @@ public class SearchQueryCommand implements SearchCommand {
 		
 		List<Employees> list = searchDAO.search(queryDTO);
 		String paging = null;
-		if(column.equals("SALARY")) {
+		if (column.equals("SALARY")) {
 			paging = PagingUtils.getPaging("search.do?column=" + column + "&bottom=" + bottom + "&top=" + top, page);
 		} else {
-			paging = PagingUtils.getPaging("search.do?column=" + column + "&query=" + query, page);
+			paging = PagingUtils.getPaging("search.do?column=" + column + "&query=" + query, page);			
 		}
+		
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
 

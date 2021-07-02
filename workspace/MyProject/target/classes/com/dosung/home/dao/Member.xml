@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dosung.home.dao.MemberDAO">
+
+	<select id="login" parameterType="com.dosung.home.dto.MemberDTO" resultType="com.dosung.home.dto.MemberDTO">
+		SELECT NO, ID, PW, NAME, PHONE, EMAIL, ADDRESS, REGDATE, STATUS
+		  FROM MEMBER
+		 WHERE ID=#{id} AND PW=#{pw}
+	</select>
+	
+	<insert id="signup" parameterType="com.dosung.home.dto.MemberDTO">
+		INSERT INTO MEMBER 
+		VALUES(MEMBER_SEQ.NEXTVAL, #{id}, #{pw}, #{name}, #{phone}, #{email}, #{address}, SYSDATE, 0)
+	</insert>
+	
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(NO)
+		  FROM MEMBER
+		 WHERE ID=#{id}
+	</select>
+	
+	<select id="phoneCheck" resultType="int">
+		SELECT COUNT(NO)
+		  FROM MEMBER
+		 WHERE PHONE=#{phone}
+	</select>
+</mapper>

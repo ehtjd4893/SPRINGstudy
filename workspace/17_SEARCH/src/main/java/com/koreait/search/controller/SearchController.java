@@ -22,16 +22,15 @@ import com.koreait.search.dto.QueryDTO;
 @Controller
 public class SearchController {
 
-	private static final Logger logger = LoggerFactory.getLogger(SearchController.class); 
+	private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 	private SqlSession sqlSession;
 	private SearchAllCommand searchAllCommand;
 	private AutoCompleteCommand autoCompleteCommand;
 	private SearchQueryCommand searchQueryCommand;
+
 	@Autowired
-	public SearchController(SqlSession sqlSession,
-							SearchAllCommand searchAllCommand,
-							AutoCompleteCommand autoCompleteCommand,
-							SearchQueryCommand searchQueryCommand) {
+	public SearchController(SqlSession sqlSession, SearchAllCommand searchAllCommand,
+			AutoCompleteCommand autoCompleteCommand, SearchQueryCommand searchQueryCommand) {
 		super();
 		this.sqlSession = sqlSession;
 		this.searchAllCommand = searchAllCommand;
@@ -39,42 +38,33 @@ public class SearchController {
 		this.searchQueryCommand = searchQueryCommand;
 	}
 
-	@GetMapping(value = {"/", "index.do"})
+	@GetMapping(value = { "/", "index.do" })
 	public String index() {
 		logger.info("call index()");
 		return "index";
 	}
-	
+
 	@GetMapping(value = "searchAll.do")
 	public String searchAll(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		searchAllCommand.execute(sqlSession, model);
-		return "list";  // SearchAllCommand가 model에 저장한 정보를 가지고 list.jsp로 포워드
+		return "list"; // SearchAllCommand가 model에 저장한 정보를 가지고 list.jsp로 포워드
 	}
-	
+
 	@PostMapping(value = "autoComplete.do")
 	@ResponseBody
-	public void autoComplete(@RequestBody QueryDTO queryDTO,
-							 HttpServletResponse response,
-							 Model model) {
+	public void autoComplete(@RequestBody QueryDTO queryDTO, HttpServletResponse response, Model model) {
 		logger.info(queryDTO.toString());
 		model.addAttribute("queryDTO", queryDTO);
 		model.addAttribute("response", response);
 		autoCompleteCommand.execute(sqlSession, model);
 	}
-	
-	@GetMapping(value= "search.do")
+
+	@GetMapping(value = "search.do")
 	public String search(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		searchQueryCommand.execute(sqlSession, model);
 		return "list";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

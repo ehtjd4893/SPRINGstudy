@@ -54,13 +54,9 @@ public class BeanConfiguration {
 		return new AutoCompleteCommand();
 	}
 	
-	@Bean SearchQueryCommand searchQueryCommand() {
+	@Bean
+	public SearchQueryCommand searchQueryCommand() {
 		return new SearchQueryCommand();
 	}
-	
-	
-	
-	
-	
 	
 }

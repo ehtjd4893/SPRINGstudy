@@ -15,22 +15,19 @@
 		});
 		function fn_search(){
 			$('#search_btn').click(function(){
-				if($('#column').val() == ''){
-					alert('분류를 선택하세요.');
-					return false;
-				}
-				else if($('#query').val() == ''){
-					alert('검색어를 입력하세요.');
+				if ($('#column').val() == '') {
+					alert('검색 카테고리를 선택하세요.');
+					$('#column').focus();
 					return false;
 				}
 				$('#f').attr('action', 'search.do');
 				$('#f').submit();
 			});
-		} 
-		function fn_init(){ 
-			$('#column').val(''); 
-			$('#query').val(''); 
-		} 
+		}
+		function fn_init(){
+			$('#column').val('');
+			$('#query').val('');
+		}
 		function fn_search_all(){
 			$('#search_all_btn').click(function(){
 				location.href = 'searchAll.do';
@@ -59,9 +56,6 @@
 								.appendTo('#auto_complete_list');
 							});
 						}
-					},
-					error: function() {
-						alert('실패');
 					}
 				});
 			});

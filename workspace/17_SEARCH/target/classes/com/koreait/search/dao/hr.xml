@@ -55,17 +55,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		  		 ORDER BY EMPLOYEE_ID) A) B
 		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 </mapper>
