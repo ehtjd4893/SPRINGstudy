@@ -34,15 +34,15 @@ public class LoginCommand implements MemberCommand {
 		
 		String result = null;
 		// 로그인 성공의 경우, Session에 Member 정보 등록
-		if(loginUser != null) {
+		if(loginUser != null && loginUser.getStatus() == 0) {
 			ses.setAttribute("loginUser", loginUser);
 			result = "board/mainList";
-		} else if(loginUser.getStatus() == 1) {	
+		} else if(loginUser != null && loginUser.getStatus() == 1) {	
 			// 로그인에 성공했지만 탈퇴한 상태인 경우
 			// 세션에 올려주고, 계정을 다시 복구할지 묻는 페이지로 이동.
 			ses.setAttribute("loginUser", loginUser);
 			result = "member/resignup";
-		} else {	// 로그인 실패의 경우 null값 등록
+		} else if(loginUser == null){	// 로그인 실패의 경우 null값 등록
 			ses.setAttribute("loginUser", null);
 			result = "member/login";
 		}

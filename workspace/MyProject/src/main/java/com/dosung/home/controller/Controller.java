@@ -1,29 +1,30 @@
 package com.dosung.home.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 import org.apache.ibatis.session.SqlSession;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dosung.home.command.GetKeyCommand;
 import com.dosung.home.command.IdCheckCommand;
 import com.dosung.home.command.LoginCommand;
+import com.dosung.home.command.MyPhoneCheckCommand;
 import com.dosung.home.command.PhoneCheckCommand;
+import com.dosung.home.command.ResignupCommand;
+import com.dosung.home.command.SignoutCommand;
 import com.dosung.home.command.SignupCommand;
-import com.dosung.home.dto.MemberDTO;
-import com.dosung.home.utils.Utils;
+import com.dosung.home.command.UpdatePwCommand;
 
-import net.nurigo.java_sdk.Coolsms;
+
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -34,19 +35,31 @@ public class Controller {
 	private SignupCommand signupCommand;
 	private IdCheckCommand idCheckCommand;
 	private PhoneCheckCommand phoneCheckCommand;
+	private SignoutCommand signoutCommand;
+	private MyPhoneCheckCommand myPhoneCheckCommand;
+	private ResignupCommand resignupCommand;
+	private UpdatePwCommand updatePwCommand;
 	@Autowired
 	public Controller(SqlSession sqlSession,
 	 				  LoginCommand loginCommand,
 	 				  GetKeyCommand getKeyCommand,
 	 				  SignupCommand signupCommand,
 	 				  IdCheckCommand idCheckCommand,
-	 				  PhoneCheckCommand phoneCheckCommand) {
+	 				  PhoneCheckCommand phoneCheckCommand,
+	 				  SignoutCommand signoutCommand,
+	 				  MyPhoneCheckCommand myPhoneCheckCommand,
+	 				  ResignupCommand resignupCommand,
+	 				  UpdatePwCommand updatePwCommand) {
 		this.sqlSession = sqlSession;
 		this.loginCommand = loginCommand;
 		this.getKeyCommand = getKeyCommand;
 		this.signupCommand = signupCommand;
 		this.idCheckCommand = idCheckCommand;
 		this.phoneCheckCommand = phoneCheckCommand;
+		this.signoutCommand = signoutCommand;
+		this.myPhoneCheckCommand = myPhoneCheckCommand;	
+		this.resignupCommand = resignupCommand;
+		this.updatePwCommand = updatePwCommand;
 	}
 	
 	@GetMapping(value="/")
@@ -120,9 +133,36 @@ public class Controller {
 	public String myPage() {
 		return "member/myPage";
 	}
+	
 	@GetMapping(value="signout.do")
-	public String signout() {
-		
-		return "board/mainList";
+	public String signout(@RequestParam long no, Model model) {
+		model.addAttribute("no", no);
+		return signoutCommand.execute(sqlSession, model);
+	}
+	
+	@GetMapping(value="myPhoneCheck.do", 
+			    produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> myPhoneCheck(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		return myPhoneCheckCommand.execute(sqlSession, model);
+	}
+	
+	@PostMapping(value="resignup.do")
+	public String resignup(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		return resignupCommand.execute(sqlSession, model);
+	}
+	
+	@PostMapping(value="updatepwPage.do")
+	public String updatePwPage() {
+		return "member/updatePw";
+	}
+	
+	@PostMapping(value="updatePw.do")
+	public String updatePw(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		updatePwCommand.execute(sqlSession, model);
+		return "member/myPage";
 	}
 }

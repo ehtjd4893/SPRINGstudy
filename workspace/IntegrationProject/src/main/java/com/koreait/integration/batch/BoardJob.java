@@ -8,7 +8,6 @@ public class BoardJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		
 		System.out.println("BoardJob 동작 완료!");
 
 	}

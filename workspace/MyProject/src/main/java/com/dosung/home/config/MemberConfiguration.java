@@ -10,8 +10,12 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import com.dosung.home.command.GetKeyCommand;
 import com.dosung.home.command.IdCheckCommand;
 import com.dosung.home.command.LoginCommand;
+import com.dosung.home.command.MyPhoneCheckCommand;
 import com.dosung.home.command.PhoneCheckCommand;
+import com.dosung.home.command.ResignupCommand;
+import com.dosung.home.command.SignoutCommand;
 import com.dosung.home.command.SignupCommand;
+import com.dosung.home.command.UpdatePwCommand;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -64,5 +68,21 @@ public class MemberConfiguration {
 	@Bean
 	public PhoneCheckCommand phoneCheckCommand() {
 		return new PhoneCheckCommand();
+	}
+	@Bean
+	public SignoutCommand signoutCommand() {
+		return new SignoutCommand();
+	}
+	@Bean 
+	public MyPhoneCheckCommand myPhoneCheckCommand() {
+		return new MyPhoneCheckCommand();
+	}
+	@Bean
+	public ResignupCommand resignupCommand() {
+		return new ResignupCommand();
+	}
+	@Bean
+	public UpdatePwCommand updatePwCommand() {
+		return new UpdatePwCommand();
 	}
 }

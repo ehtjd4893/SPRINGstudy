@@ -11,5 +11,14 @@ public interface MemberDAO {
 	public int idCheck(String id);
 
 	public int phoneCheck(String phone);
+	
+	public int signout(long no);
+
+	public int myPhoneCheck(MemberDTO dto);
+
+	public void resignup(long no);
+
+	public void updatePw(MemberDTO dto);
+
 
 }

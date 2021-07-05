@@ -7,7 +7,7 @@
 	<select id="login" parameterType="com.dosung.home.dto.MemberDTO" resultType="com.dosung.home.dto.MemberDTO">
 		SELECT NO, ID, PW, NAME, PHONE, EMAIL, ADDRESS, REGDATE, STATUS
 		  FROM MEMBER
-		 WHERE ID=#{id} AND PW=#{pw}
+		 WHERE ID = #{id} AND PW = #{pw}
 	</select>
 	
 	<insert id="signup" parameterType="com.dosung.home.dto.MemberDTO">
@@ -18,12 +18,33 @@
 	<select id="idCheck" resultType="int">
 		SELECT COUNT(NO)
 		  FROM MEMBER
-		 WHERE ID=#{id}
+		 WHERE ID = #{id}
 	</select>
 	
 	<select id="phoneCheck" resultType="int">
 		SELECT COUNT(NO)
 		  FROM MEMBER
-		 WHERE PHONE=#{phone}
+		 WHERE PHONE = #{phone}
 	</select>
+	
+	<update id="signout">
+		UPDATE MEMBER SET STATUS = 1
+		 WHERE NO = #{no}
+	</update>
+	
+	<select id="myPhoneCheck" parameterType="com.dosung.home.dto.MemberDTO" resultType="int">
+		SELECT COUNT(NO)
+		  FROM MEMBER
+		 WHERE PHONE = #{phone} AND NO = #{no}
+	</select>
+	
+	<update id="resignup">
+		UPDATE MEMBER SET STATUS = 0
+		 WHERE NO = #{no}
+	</update>
+	
+	<update id="updatePw" parameterType="com.dosung.home.dto.MemberDTO">
+		UPDATE MEMBER SET PW = #{pw}
+		 WHERE NO = #{no}
+	</update>
 </mapper>

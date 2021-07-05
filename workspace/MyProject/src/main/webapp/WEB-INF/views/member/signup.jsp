@@ -171,7 +171,7 @@
 						data: 'phone=010' + $('#phone').val(),
 						dataType: 'json',
 						success: function(resultMap){
-							alert('인증번호가 발급되었습니다' + resultMap.phone + ", " + resultMap.key);	
+							alert('해당번호로 인증번호가 발급되었습니다' + resultMap.key);	
 							key = resultMap.key;
 						},
 						error: function(xhr, textStatus, errorThrown){

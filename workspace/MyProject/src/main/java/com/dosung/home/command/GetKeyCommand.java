@@ -1,16 +1,13 @@
 package com.dosung.home.command;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
-import com.dosung.home.utils.Utils;
+import com.dosung.home.utils.SendMsg;
 
 // 인증키 발급
 public class GetKeyCommand {
@@ -22,8 +19,10 @@ public class GetKeyCommand {
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("phone", phone);
-		resultMap.put("key", Utils.getAuthCode(6));
+		resultMap.put("key", SendMsg.send(phone));
 		
 		return resultMap;
 	}
+	
+	
 }
