@@ -34,12 +34,12 @@
 		});	// onload
 		
 		// 전역변수
-		var key_pass = false;	// 인증키 인증 성공시 true
 		var id_pass = false;	// ID 형식, 중복확인 통과시 true
+		var key_pass = false;	// 인증키 인증 성공시 true
+		var key = null;			// 발급받은 인증키값 저장
 		var phone_pass = false;	// 연락처 형식, 중복확인 통과시 true
 		var pw1_pass = false;	// 비밀번호 형식 이상 없을 때 true
 		var pw2_pass = false;	// 두 비밀번호가 같을 때 true
-		var key = null;			// 발급받은 인증키값 저장
 		
 		function fn_check_pw1(){
 			var regPw = /^[A-Za-z0-9!@#$]{4,20}$/;

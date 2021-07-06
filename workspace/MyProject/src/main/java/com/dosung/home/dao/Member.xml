@@ -28,7 +28,8 @@
 	</select>
 	
 	<update id="signout">
-		UPDATE MEMBER SET STATUS = 1
+		UPDATE MEMBER 
+		       SET STATUS = 1
 		 WHERE NO = #{no}
 	</update>
 	
@@ -39,12 +40,35 @@
 	</select>
 	
 	<update id="resignup">
-		UPDATE MEMBER SET STATUS = 0
+		UPDATE MEMBER SET 
+		       STATUS = 0
 		 WHERE NO = #{no}
 	</update>
 	
 	<update id="updatePw" parameterType="com.dosung.home.dto.MemberDTO">
-		UPDATE MEMBER SET PW = #{pw}
+		UPDATE MEMBER SET 
+		       PW = #{pw}
 		 WHERE NO = #{no}
 	</update>
+
+	<update id="update" parameterType="com.dosung.home.dto.MemberDTO">
+		UPDATE MEMBER SET 
+			   NAME = #{name}, 
+			   EMAIL = #{email},
+			   ADDRESS = #{address},
+			   PHONE = #{phone}
+		 WHERE NO = #{no}
+	</update>
+	
+	<select id="findId" parameterType="com.dosung.home.dto.MemberDTO" resultType="com.dosung.home.dto.MemberDTO">
+		SELECT ID
+		  FROM MEMBER
+		 WHERE NAME=#{name} AND PHONE=#{phone}
+	</select>
+	
+	<select id="findPw" parameterType="com.dosung.home.dto.MemberDTO" resultType="com.dosung.home.dto.MemberDTO">
+		SELECT PW
+		  FROM MEMBER
+		 WHERE ID=#{id} AND PHONE=#{phone}
+	</select>
 </mapper>

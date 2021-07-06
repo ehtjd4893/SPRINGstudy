@@ -7,6 +7,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>DS - Homepage</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
 	<style>
 		#myContainer{
 			box-sizing: border-box;
@@ -23,6 +24,60 @@
 			border-collapse: collapse;
 		}
 	</style>
+	
+	<script>
+		$(function(){
+			fn_write();
+			fn_list();
+		});	// onload
+		
+		function fn_list(){
+			$.ajax({
+				url: 'boardList.do',
+				type: 'get',
+				dataType: 'json',
+				success: function(resultMap){
+					$.each(resultMap.list, function(i, board){
+						if(board.image == 'null'){
+							$('<tr>')
+							.append( $('<td>').text(board.no) )
+							.append( $('<td>').text(board.writer) )
+							.append( $('<td>').html('<a href="showBoard.do?no="' + board.no + '">' + board.title + '</a>') )
+							.append( $('<td>').text(board.postdate) )
+							.append( $('<td>').text(board.hit) )
+							.append( $('<td>').text('') )
+							.appendTo('#list');
+						}
+						else{
+							$('<tr>')
+							.append( $('<td>').text(board.no) )
+							.append( $('<td>').text(board.writer) )
+							.append( $('<td>').html('<a href="showBoard.do?no="' + board.no + '">' + board.title + '</a>') )
+							.append( $('<td>').text(board.postdate) )
+							.append( $('<td>').text(board.hit) )
+							.append( $('<td>').html('<i class="far fa-image"></i>') )
+							.appendTo( $('#list') );
+						} 
+					});	// each
+				},
+				error: function(){
+					
+				}
+			});	// ajax
+		}	// fn_list
+		
+		function fn_write(){
+			$('#write_btn').click(function(){
+				if( ${loginUser == null}){	// 로그인한 상태가 아니라면
+					alert('로그인 후 이용가능합니다.');
+					location.href='loginPage.do';
+				} else{	// 로그인한 상태라면
+					location.href='writePage.do';
+				}
+			});	// onclick
+		}	// fn_write
+	</script>
+	
 </head>
 <body>
 	<div id="myContainer">
@@ -46,19 +101,16 @@
 				<td>이미지</td>
 			</tr>
 		</thead>
+		
 		<tbody id="list">
-			<c:if test="${loginUser.status == 1}">
-				<tr>
-					<td colspan="6">탈퇴한 상태의</td>
-				</tr>			
-			</c:if>
-			<c:if test="${loginUser.status == 0}">
-				<tr>
-					<td colspan="6">로그인 상태의</td>
-				</tr>			
-			</c:if>
+				
 		</tbody>
+		
+		<tfoot>
+			
+		</tfoot>
 	</table>
+	<input type="button" id="write_btn" value="새 글 작성하기">
 		
 </body>
 </html>

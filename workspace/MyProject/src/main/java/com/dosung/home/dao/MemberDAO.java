@@ -20,5 +20,11 @@ public interface MemberDAO {
 
 	public void updatePw(MemberDTO dto);
 
+	public void update(MemberDTO dto);
+
+	public MemberDTO findId(MemberDTO dto);
+
+	public MemberDTO findPw(MemberDTO dto);
+
 
 }
