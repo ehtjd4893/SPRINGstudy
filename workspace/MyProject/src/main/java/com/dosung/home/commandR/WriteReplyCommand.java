@@ -13,7 +13,7 @@ import com.dosung.home.dao.BoardDAO;
 public class WriteReplyCommand {
 
 	public Map<String, Object> execute(SqlSession sqlSession, Model model){
-		Map<String, Object> map = model.asMap();
+		Map<String, Object> map = model.asMap(); 
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String reply = request.getParameter("reply");
 		long boardno = Long.parseLong(request.getParameter("no"));
