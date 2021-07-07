@@ -15,8 +15,8 @@ public class BoardDTO {
 	private String writer;
 	private String title;
 	private String content;
-	private Date postdate;
-	private Date lastmodified;
+	private String postdate;
+	private String lastmodified;
 	private String ip;
 	private long hit;
 	private String image;

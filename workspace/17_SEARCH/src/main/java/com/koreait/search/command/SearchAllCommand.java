@@ -23,6 +23,7 @@ public class SearchAllCommand implements SearchCommand {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		// null값이 입력된다면 시작페이지로 지정
 		int page = Integer.parseInt(opt.orElse("1"));
 		
 		SearchDAO searchDAO = sqlSession.getMapper(SearchDAO.class);
@@ -35,7 +36,7 @@ public class SearchAllCommand implements SearchCommand {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
-
+		System.out.println(paging);
 	}
 
 }

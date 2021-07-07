@@ -30,7 +30,7 @@
 		<input type="hidden" name="writer" value="${loginUser.id}"><br><br>
 		
 		제목<br>
-		<input type="text" name="title"><br><br>
+		<input type="text" name="title" ><br><br>
 		
 		내용<br>
 		<textarea rows="10" cols="50" name="content"></textarea><br><br>

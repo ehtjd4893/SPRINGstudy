@@ -1,4 +1,4 @@
-package com.dosung.home.commandM;
+package com.dosung.home.commandB;
 
 
 import java.io.File;
@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.dosung.home.dao.BoardDAO;
 import com.dosung.home.dto.BoardDTO;
 import com.dosung.home.dto.MemberDTO;
+import com.dosung.home.utils.Utils;
 
 public class WriteCommand implements BoardCommand {
 
@@ -26,11 +27,13 @@ public class WriteCommand implements BoardCommand {
 		
 		Map<String, Object> map = model.asMap();
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)map.get("multipartRequest");
+		HttpServletResponse response = (HttpServletResponse) map.get("response");
+
 		
 		String writer = multipartRequest.getParameter("writer");
 		String title = multipartRequest.getParameter("title");
 		String content = multipartRequest.getParameter("content");
-		String ip = multipartRequest.getRemoteAddr();
+		String ip = Utils.getClientIpAddr(multipartRequest);
 		BoardDTO dto = new BoardDTO();
 		dto.setWriter(writer);
 		dto.setTitle(title);
@@ -81,6 +84,18 @@ public class WriteCommand implements BoardCommand {
 			
 			boardDAO.write(dto);
 		}  // for
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('작성 완료')");
+			out.println("</script>");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return "board/mainList";
 		
 	}

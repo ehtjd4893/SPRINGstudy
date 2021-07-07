@@ -1,4 +1,4 @@
-package com.dosung.home.commandM;
+package com.dosung.home.commandB;
 
 
 import org.apache.ibatis.session.SqlSession;

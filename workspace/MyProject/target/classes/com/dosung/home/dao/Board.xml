@@ -9,8 +9,65 @@
 		VALUES(BOARD_SEQ.NEXTVAL, #{writer}, #{title}, #{content}, SYSDATE, SYSDATE, #{ip}, 0, #{image})
 	</insert>
 	
-	<select id="boardList" resultType="com.dosung.home.dto.BoardDTO">
-		SELECT NO, WRITER, TITLE, CONTENT, POSTDATE, LASTMODIFIED, IP, HIT, IMAGE
+	<select id="boardList" parameterType="com.dosung.home.dto.PageDTO" resultType="com.dosung.home.dto.BoardDTO">
+		SELECT B.RN, B.NO, B.WRITER, B.TITLE, B.CONTENT, B.POSTDATE, B.LASTMODIFIED, B.IP, B.HIT, B.IMAGE
+		  FROM (SELECT ROWNUM AS RN, A.*
+		  		  FROM (SELECT NO, WRITER, TITLE, CONTENT, POSTDATE, LASTMODIFIED, IP, HIT, IMAGE
+		  		  		  FROM BOARD
+		 		 		 ORDER BY HIT DESC) A) B
+	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<select id="getTotalRecord" resultType="int">
+		SELECT COUNT(NO)
 		  FROM BOARD
 	</select>
+	<select id="getSearchedlRecord" resultType="int">
+		SELECT COUNT(NO)
+		  FROM BOARD
+		 WHERE ${column} LIKE '%' || #{query} || '%'
+	</select>
+	
+	<select id="searchList" resultType="com.dosung.home.dto.BoardDTO">
+		SELECT B.RN, B.NO, B.WRITER, B.TITLE, B.CONTENT, B.POSTDATE, B.LASTMODIFIED, B.IP, B.HIT, B.IMAGE
+		  FROM (SELECT ROWNUM AS RN, A.*
+		  		  FROM (SELECT NO, WRITER, TITLE, CONTENT, POSTDATE, LASTMODIFIED, IP, HIT, IMAGE
+		  		  		  FROM BOARD
+		  		  		 WHERE ${column} LIKE '%' || #{query} || '%'
+		 		 		 ORDER BY HIT DESC) A) B
+	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<update id="updateHitByNo">
+		UPDATE BOARD 
+		   SET HIT = HIT+1
+		 WHERE NO=#{no}
+	</update>
+	
+	<select id="selectBoardByNo" resultType="com.dosung.home.dto.BoardDTO">
+		SELECT NO, WRITER, TITLE, CONTENT, POSTDATE, LASTMODIFIED, IP, HIT, IMAGE
+		  FROM BOARD
+		 WHERE NO = #{no}
+	</select>
+	
+	<update id="updateBoard" parameterType="com.dosung.home.dto.BoardDTO">
+		UPDATE BOARD 
+		   SET TITLE = #{title},
+		       CONTENT = #{content},
+		       LASTMODIFIED = SYSDATE,
+		       IP = #{ip},
+			   IMAGE = #{image}
+		 WHERE NO=#{no}
+	</update>
+	
+	<delete id="deleteBoard">
+		DELETE FROM BOARD
+		 WHERE 	NO=#{no}
+	</delete>
+	
+	<insert id="writeReply">
+		INSERT INTO REPLY
+		VALUES()
+	</insert>
+	
 </mapper>

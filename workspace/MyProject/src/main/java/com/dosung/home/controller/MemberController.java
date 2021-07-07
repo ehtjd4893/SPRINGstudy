@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.dosung.home.commandM.BoardListCommand;
+import com.dosung.home.commandB.BoardListCommand;
+import com.dosung.home.commandB.WriteCommand;
 import com.dosung.home.commandM.FindIdCommand;
 import com.dosung.home.commandM.FindPwCommand;
 import com.dosung.home.commandM.GetKeyCommand;
@@ -30,7 +31,6 @@ import com.dosung.home.commandM.SignoutCommand;
 import com.dosung.home.commandM.SignupCommand;
 import com.dosung.home.commandM.UpdateCommand;
 import com.dosung.home.commandM.UpdatePwCommand;
-import com.dosung.home.commandM.WriteCommand;
 
 
 
@@ -50,9 +50,6 @@ public class MemberController {
 	private UpdateCommand updateCommand;
 	private FindIdCommand findIdCommand;
 	private FindPwCommand findPwCommand;
-	////////////////////////////////////////
-	private WriteCommand writeCommand;
-	private BoardListCommand boardListCommand;
 	@Autowired
 	public MemberController(SqlSession sqlSession,
 	 				  LoginCommand loginCommand,
@@ -66,10 +63,7 @@ public class MemberController {
 	 				  UpdatePwCommand updatePwCommand,
 	 				  UpdateCommand updateCommand,
 	 				  FindIdCommand findIdCommand,
-	 				  FindPwCommand findPwCommand,
-	 				  /////////////////////////////////
-	 				  WriteCommand writeCommand,
-	 				  BoardListCommand boardListCommand) {
+	 				  FindPwCommand findPwCommand) {
 		this.sqlSession = sqlSession;
 		this.loginCommand = loginCommand;
 		this.getKeyCommand = getKeyCommand;
@@ -83,9 +77,6 @@ public class MemberController {
 		this.updateCommand = updateCommand;
 		this.findIdCommand = findIdCommand;
 		this.findPwCommand = findPwCommand;
-		
-		this.writeCommand = writeCommand;
-		this.boardListCommand = boardListCommand;
 	}
 	
 	@GetMapping(value="/")
@@ -102,7 +93,7 @@ public class MemberController {
 	@PostMapping(value="login.do")
 	public String login(HttpServletRequest request,Model model) {
 		model.addAttribute("request", request);	// model을 통해 request 전달( to command )
-		loginCommand.execute(sqlSession, model);
+		model.addAttribute("page", "1");
 		return loginCommand.execute(sqlSession, model);
 	}
 	
@@ -131,13 +122,9 @@ public class MemberController {
 	
 	// 세션 비우고 mainList화면으로 이동
 	@GetMapping(value="logout.do")
-	public String logout(HttpServletRequest request) {
+	public String logout(HttpServletRequest request, Model model) {
 		request.getSession().invalidate();
-		return "board/mainList";
-	}
-	
-	@GetMapping(value="mainList.do")
-	public String back(HttpServletRequest request) {
+		model.addAttribute("page", "1");
 		return "board/mainList";
 	}
 	
@@ -229,31 +216,7 @@ public class MemberController {
 		model.addAttribute("request",request);
 		return findPwCommand.execute(sqlSession, model);
 	}
-	////////////////////////////////////////////////////////
 	
 	
-	@GetMapping(value="writePage.do")
-	public String writePage() {
-		return "board/write";
-	}
-	@PostMapping(value="write.do")
-	public String write(MultipartHttpServletRequest multipartRequest, HttpServletResponse response, Model model) {
-		model.addAttribute("response", response);
-		model.addAttribute("multipartRequest", multipartRequest);
-		return writeCommand.execute(sqlSession, model);
-	}
-	
-	@GetMapping(value="boardList.do",
-			    produces="application/json; charset=utf-8")
-	@ResponseBody
-	public Map<String, Object> boardList(HttpServletRequest request, Model model){
-		model.addAttribute("request", request);
-		return boardListCommand.execute(sqlSession, model);
-	}
-	
-	@GetMapping(value="showBoard.do")
-	public String showBoard(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
-		return "";
-	}
+
 }
